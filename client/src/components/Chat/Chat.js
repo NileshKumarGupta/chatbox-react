@@ -4,6 +4,13 @@ import io from 'socket.io-client';
 
 let socket;
 
+var connectionOptions =  {
+  "force new connection" : true,
+  "reconnectionAttempts": "Infinity", 
+  "timeout" : 10000,                  
+  "transports" : ["websocket"]
+};
+
 const Chat = ({location}) => {
 
   const [name, setName] = useState('');
@@ -13,7 +20,7 @@ const Chat = ({location}) => {
   useEffect(() =>{
     const {name, room} = queryString.parse(location.search);
 
-    socket = io(ENDPOINT);
+    socket = io('localhost:5000', connectionOptions);
 
     setName(name);
     setRoom(room);

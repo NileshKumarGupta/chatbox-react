@@ -20,6 +20,7 @@ io.on('connection', (socket) => {
 })
 
 app.use(router);
+app.use(cors);
 
 server.listen(PORT, () => console.log(`Server has started on port ${PORT}`));
 
