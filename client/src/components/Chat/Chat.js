@@ -22,23 +22,23 @@ const Chat = ({location}) => {
   const [room, setRoom] = useState('');
   const [messages, setMessages] = useState([]);
   const [message, setMessage] = useState('');
-  const ENDPOINT = 'https://chatbox-react-b.herokuapp.com/'
+  // const ENDPOINT = 'https://chatbox-react-b.herokuapp.com/'
+  const ENDPOINT = 'localhost:5000';
 
   useEffect(() =>{
     const {name, room} = queryString.parse(location.search);
 
-    console.log(name, room);
+    // console.log(name, room);
 
     socket = io(ENDPOINT, connectionOptions);
 
     setName(name);
     setRoom(room);
 
-    socket.emit('join', {name, room});
-    // , ({error}) => {
-    //   if(error)
-    //     console.log(error);
-    // })
+    socket.emit('join', {name, room}, ({error}) => {
+      if(error)
+        console.log(error);
+    })
 
     return () => {
       socket.emit('disconnect');
